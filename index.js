@@ -1,45 +1,19 @@
-const express = require('express')
-require('dotenv').config()
-const {dbConnection} = require('./database/config')
-const cors = require('cors')
-const routes = require('./routes/user')
-const cookieParser = require("cookie-parser")
-const bodyParser = require('body-parser')
-const postRoutes = require('./routes/posts')
+const express = require('express');
+const path = require('path');
 
-//crear Express App
-const app = express()
+const app = express();
 
-app.use(bodyParser.json({ limit: "30mb", extended: true}))
-app.use(bodyParser.urlencoded({ limit: "30mb", extended: true}))
+const server = require('http').Server(app);
+const socketio = require('socket.io')(server);
 
-//Base de datos
-
-dbConnection();
-
-app.use(
-     cors({
-        origin: ["http://localhost:3000"],
-        method: ["GET", "POST"],
-        credentials: true,
-    
-}))
+app.set('port',process.env.PORT || 3000);
 
 
+//ejecuta la función socket
+require('../sockets')(socketio);
 
-//Lectura y parseo del body
-app.use( express.json())
+app.use(express.static(path.join(__dirname,'public')));
 
-//Rutas
-app.use('/posts', postRoutes)
-app.use('/user', routes)
-
-
-//puerto 4000
-app.listen(process.env.PORT, () =>{
-    console.log('Servidor corriendo en puerto', process.env.PORT);
+server.listen(app.get,('port'),()=>{
+    console.log('servidor en el puerto',app.get('port'));
 })
-
-app.use(cookieParser())
-
-app.use("/", routes)
