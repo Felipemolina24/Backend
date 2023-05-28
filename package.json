@@ -23,5 +23,8 @@
     "mongoose": "^7.1.0",
     "react-cookie": "^4.1.1",
     "socket.io": "^4.6.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
   }
 }
