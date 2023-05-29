@@ -19,7 +19,7 @@ dbConnection();
 
 app.use(
      cors({
-        origin: ["http://localhost:3000"],
+        origin: ["http://localhost:3000", "https://playconnect.netlify.app/"],
         method: ["GET", "POST"],
         credentials: true,
     
