@@ -30,7 +30,7 @@ app.use(cookieParser());
 // Configuración de CORS
 app.use(cors({
   origin: ["http://localhost:3000", "https://playconnect.netlify.app"],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "PATCH", "DELETE"],
   credentials: true
 }));
 
